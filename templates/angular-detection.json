@@ -1,0 +1,52 @@
+{
+  "id": "TPL-TECH-ANGULAR-001",
+  "name": "Angular application marker",
+  "severity": "INFO",
+  "category": "Technology",
+  "description": "Angular-specific application markup was observed.",
+  "recommendation": "Informational technology fingerprint.",
+  "tags": [
+    "angular",
+    "technology",
+    "passive"
+  ],
+  "min_profile": 1,
+  "allow_degraded": false,
+  "preconditions": {
+    "http_status": [
+      200,
+      203
+    ]
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "timeout": 5.0
+    }
+  ],
+  "matcher_condition": "OR",
+  "matchers": [
+    {
+      "type": "word",
+      "part": "body",
+      "values": [
+        "<app-root"
+      ]
+    },
+    {
+      "type": "regex",
+      "part": "body",
+      "value": "ng-version=[\"\\'][^\"\\']+[\"\\']"
+    }
+  ],
+  "extractors": [
+    {
+      "name": "angular_version",
+      "type": "regex",
+      "part": "body",
+      "pattern": "ng-version=[\"\\']([^\"\\']+)[\"\\']",
+      "group": 1
+    }
+  ]
+}

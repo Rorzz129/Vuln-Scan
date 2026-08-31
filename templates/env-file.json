@@ -1,0 +1,67 @@
+{
+  "id": "TPL-WEB-004",
+  "name": "Environment file exposed",
+  "severity": "HIGH",
+  "category": "Exposure",
+  "description": "A .env file appears publicly accessible.",
+  "recommendation": "Remove environment files from the public web root and deny access.",
+  "tags": [
+    "web",
+    "config",
+    "exposure"
+  ],
+  "confidence": "HIGH",
+  "request": {
+    "method": "GET",
+    "path": "/.env"
+  },
+  "matcher_condition": "AND",
+  "matchers": [
+    {
+      "type": "status",
+      "part": "status",
+      "values": [
+        200
+      ]
+    },
+    {
+      "type": "word",
+      "part": "body",
+      "condition": "contains",
+      "values": [
+        "APP_",
+        "DB_",
+        "SECRET",
+        "DATABASE_URL"
+      ]
+    }
+  ],
+  "min_profile": 2,
+  "allow_degraded": false,
+  "stop_at_first_match": true,
+  "preconditions": {
+    "http_status": [
+      200,
+      201,
+      202,
+      204,
+      301,
+      302,
+      307,
+      308,
+      401,
+      403
+    ]
+  },
+  "concept": "env-exposure",
+  "validation": {
+    "reject_soft404": true,
+    "max_soft404_similarity": 0.9,
+    "content_types": [
+      "text/plain",
+      "application/octet-stream"
+    ],
+    "require_same_origin": true,
+    "verification": "CONFIRMED"
+  }
+}

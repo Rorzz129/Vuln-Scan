@@ -1,0 +1,65 @@
+{
+  "id": "TPL-WEB-006",
+  "name": "Swagger/OpenAPI interface exposed",
+  "severity": "INFO",
+  "category": "Information",
+  "description": "A Swagger/OpenAPI interface appears publicly accessible.",
+  "recommendation": "Verify that public API documentation is intentional.",
+  "tags": [
+    "api",
+    "web",
+    "information"
+  ],
+  "confidence": "MEDIUM",
+  "request": {
+    "method": "GET",
+    "path": "/api-docs"
+  },
+  "matcher_condition": "OR",
+  "matchers": [
+    {
+      "type": "word",
+      "part": "body",
+      "condition": "contains",
+      "values": [
+        "swagger"
+      ]
+    },
+    {
+      "type": "word",
+      "part": "body",
+      "condition": "contains",
+      "values": [
+        "openapi"
+      ]
+    }
+  ],
+  "min_profile": 1,
+  "allow_degraded": false,
+  "stop_at_first_match": true,
+  "preconditions": {
+    "http_status": [
+      200,
+      201,
+      202,
+      204,
+      301,
+      302,
+      307,
+      308,
+      401,
+      403
+    ]
+  },
+  "concept": "api-docs",
+  "validation": {
+    "reject_soft404": true,
+    "max_soft404_similarity": 0.9,
+    "content_types": [
+      "text/html",
+      "application/json"
+    ],
+    "require_same_origin": true,
+    "verification": "OBSERVED"
+  }
+}

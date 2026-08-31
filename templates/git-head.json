@@ -1,0 +1,64 @@
+{
+  "id": "TPL-WEB-003",
+  "name": "Git metadata exposed",
+  "severity": "HIGH",
+  "category": "Exposure",
+  "description": "The Git HEAD file appears publicly accessible.",
+  "recommendation": "Remove .git metadata from the public web root and deny access.",
+  "tags": [
+    "web",
+    "git",
+    "exposure"
+  ],
+  "confidence": "HIGH",
+  "request": {
+    "method": "GET",
+    "path": "/.git/HEAD"
+  },
+  "matcher_condition": "AND",
+  "matchers": [
+    {
+      "type": "status",
+      "part": "status",
+      "values": [
+        200
+      ]
+    },
+    {
+      "type": "word",
+      "part": "body",
+      "condition": "contains",
+      "values": [
+        "ref: refs/"
+      ]
+    }
+  ],
+  "min_profile": 2,
+  "allow_degraded": false,
+  "stop_at_first_match": true,
+  "preconditions": {
+    "http_status": [
+      200,
+      201,
+      202,
+      204,
+      301,
+      302,
+      307,
+      308,
+      401,
+      403
+    ]
+  },
+  "concept": "git-exposure",
+  "validation": {
+    "reject_soft404": true,
+    "max_soft404_similarity": 0.9,
+    "content_types": [
+      "text/plain",
+      "application/octet-stream"
+    ],
+    "require_same_origin": true,
+    "verification": "CONFIRMED"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "TPL-WEB-012",
+  "name": "JavaScript source map exposed",
+  "severity": "LOW",
+  "category": "Exposure",
+  "description": "A common JavaScript source map path is publicly accessible.",
+  "recommendation": "Review whether production source maps should be publicly exposed.",
+  "tags": [
+    "web",
+    "javascript",
+    "source-map",
+    "exposure"
+  ],
+  "min_profile": 3,
+  "concept": "source-map",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/main.js.map",
+      "timeout": 5.0
+    },
+    {
+      "method": "GET",
+      "path": "/runtime.js.map",
+      "timeout": 5.0
+    }
+  ],
+  "matcher_condition": "AND",
+  "matchers": [
+    {
+      "type": "status",
+      "part": "status",
+      "values": [
+        200
+      ]
+    },
+    {
+      "type": "word",
+      "part": "body",
+      "condition": "contains_all",
+      "values": [
+        "\"version\"",
+        "\"sources\"",
+        "\"mappings\""
+      ]
+    }
+  ],
+  "validation": {
+    "reject_soft404": true,
+    "content_types": [
+      "application/json",
+      "text/plain"
+    ],
+    "verification": "CONFIRMED"
+  }
+}

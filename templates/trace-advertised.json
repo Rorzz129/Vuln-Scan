@@ -1,0 +1,56 @@
+{
+  "id": "TPL-WEB-007",
+  "name": "TRACE method advertised",
+  "severity": "MEDIUM",
+  "category": "HTTP Methods",
+  "description": "TRACE appears in the server's advertised methods.",
+  "recommendation": "Disable TRACE unless it is explicitly required.",
+  "tags": [
+    "http",
+    "method",
+    "misconfiguration"
+  ],
+  "confidence": "MEDIUM",
+  "request": {
+    "method": "OPTIONS",
+    "path": "/"
+  },
+  "matcher_condition": "OR",
+  "matchers": [
+    {
+      "type": "word",
+      "part": "header:Allow",
+      "condition": "contains",
+      "values": [
+        "TRACE"
+      ]
+    },
+    {
+      "type": "word",
+      "part": "header:Access-Control-Allow-Methods",
+      "condition": "contains",
+      "values": [
+        "TRACE"
+      ]
+    }
+  ],
+  "min_profile": 2,
+  "allow_degraded": false,
+  "stop_at_first_match": true,
+  "preconditions": {
+    "http_status": [
+      200,
+      201,
+      202,
+      204,
+      301,
+      302,
+      307,
+      308,
+      401,
+      403
+    ]
+  },
+  "enabled": false,
+  "disabled_reason": "Covered by native V1.6 scanner; disabled to avoid duplicate findings."
+}

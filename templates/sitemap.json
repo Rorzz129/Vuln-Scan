@@ -1,0 +1,42 @@
+{
+  "id": "TPL-WEB-021",
+  "name": "XML sitemap discovered",
+  "severity": "INFO",
+  "category": "Discovery",
+  "description": "An XML sitemap exposes application URLs.",
+  "recommendation": "Review sitemap entries as part of the authorized application scope.",
+  "tags": [
+    "sitemap",
+    "discovery",
+    "passive"
+  ],
+  "min_profile": 1,
+  "concept": "sitemap",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/sitemap.xml",
+      "timeout": 4.0
+    }
+  ],
+  "matcher_condition": "OR",
+  "matchers": [
+    {
+      "type": "word",
+      "part": "body",
+      "values": [
+        "<urlset",
+        "<sitemapindex"
+      ]
+    }
+  ],
+  "validation": {
+    "reject_soft404": true,
+    "content_types": [
+      "application/xml",
+      "text/xml",
+      "text/plain"
+    ],
+    "verification": "OBSERVED"
+  }
+}
