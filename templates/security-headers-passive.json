@@ -1,0 +1,48 @@
+{
+  "id": "TPL-PASSIVE-002",
+  "name": "HSTS absent on HTTPS response",
+  "severity": "LOW",
+  "category": "Security Headers",
+  "description": "Strict-Transport-Security was not present on an HTTPS response.",
+  "recommendation": "Enable HSTS when HTTPS is consistently deployed.",
+  "tags": [
+    "passive",
+    "header",
+    "misconfiguration"
+  ],
+  "min_profile": 1,
+  "allow_degraded": false,
+  "preconditions": {
+    "ports": [
+      443
+    ],
+    "http_status": [
+      200,
+      204,
+      301,
+      302,
+      307,
+      308,
+      401,
+      403
+    ]
+  },
+  "requests": [
+    {
+      "method": "HEAD",
+      "path": "/",
+      "timeout": 4.0
+    }
+  ],
+  "matchers": [
+    {
+      "type": "word",
+      "part": "header:Strict-Transport-Security",
+      "condition": "equals",
+      "value": "",
+      "negate": false
+    }
+  ],
+  "enabled": false,
+  "disabled_reason": "Covered by native V1.6 scanner; disabled to avoid duplicate findings."
+}

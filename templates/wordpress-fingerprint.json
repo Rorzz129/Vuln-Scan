@@ -1,0 +1,51 @@
+{
+  "id": "TPL-TECH-WORDPRESS-001",
+  "name": "WordPress application marker",
+  "severity": "INFO",
+  "category": "Technology",
+  "description": "WordPress-specific markers were observed.",
+  "recommendation": "Informational technology fingerprint.",
+  "tags": [
+    "wordpress",
+    "technology",
+    "passive"
+  ],
+  "min_profile": 1,
+  "allow_degraded": false,
+  "preconditions": {
+    "technologies": [
+      "WordPress"
+    ],
+    "http_status": [
+      200,
+      203
+    ]
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "timeout": 5.0
+    }
+  ],
+  "matcher_condition": "OR",
+  "matchers": [
+    {
+      "type": "word",
+      "part": "body",
+      "values": [
+        "/wp-content/",
+        "/wp-includes/"
+      ]
+    }
+  ],
+  "extractors": [
+    {
+      "name": "wordpress_version",
+      "type": "regex",
+      "part": "body",
+      "pattern": "(?i)WordPress\\s*([0-9]+\\.[0-9]+(?:\\.[0-9]+){0,2})",
+      "group": 1
+    }
+  ]
+}
