@@ -1,4 +1,6 @@
-# A.C.R Vuln
+<p align="center">
+  
+  # A.C.R Vuln
 
 <p align="center">
 
@@ -67,11 +69,11 @@ isolated result, A.C.R Vuln connects information across the entire scan.
 
 ```
 
-|to use :
+# to use :
 ```text
 python main.py
 ```
-|# OR
+# OR
 ```text
 Run the .exe in the ".EXE" file and if it’s not there, click on "build_GUI" and the .exe will exit into the DIST folder
 
