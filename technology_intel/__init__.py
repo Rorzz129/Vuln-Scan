@@ -1,2 +1,0 @@
-from technology_intel.engine import enrich_technologies
-from technology_intel.aliases import canonical_name
