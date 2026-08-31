@@ -28,7 +28,7 @@ raw reconnaissance data into structured security intelligence.
 Instead of treating every detected service, technology or endpoint as an
 isolated result, A.C.R Vuln connects information across the entire scan.
 
-.
+```text
                     TARGET
                        │
                        ▼
